@@ -1,0 +1,14 @@
+{
+  "name": "my-firebase-crm",
+  "version": "1.0.0",
+  "description": "Apex CRM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathan Kobz",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^10.14.0"
+  }
+}

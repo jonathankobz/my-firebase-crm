@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Adjusting Group CRM - Login</title>
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="styles/styles.css"> 
+    <style>
+        /* General Body Styling */
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Login Container */
+        .login-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Logo/Header */
+        .login-container h2 {
+            margin: 0 0 20px 0;
+            font-size: 24px;
+            color: #007BFF; /* Primary color */
+        }
+
+        /* Input Fields */
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Buttons */
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF; /* Primary color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-container button:hover {
+            background-color: #0056b3; /* Darker blue for hover */
+        }
+
+        /* Error Message */
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        .login-footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form Container -->
+    <div class="login-container">
+        <h2>Apex Adjusting Group CRM</h2>
+        
+        <!-- Login Form -->
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button id="login-button">Login</button>
+        <div id="login-error" class="error-message"></div> <!-- Error message display -->
+
+        <!-- Footer (optional) -->
+        <div class="login-footer">
+            &copy; 2024 Apex Adjusting Group. All rights reserved.
+        </div>
+    </div>
+
+    <!-- Firebase Authentication Script -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.8.1/firebase-auth.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdSSJjOesEx3TcTsqdn8ZAf-sKH_UypSE",
+            authDomain: "apex-crm-437802.firebaseapp.com",
+            projectId: "apex-crm-437802",
+            storageBucket: "apex-crm-437802.appspot.com",
+            messagingSenderId: "250243550020",
+            appId: "1:250243550020:web:00b6afbc344febb3ba6511",
+            measurementId: "G-9F2KZV98ZD"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Login Event Listener
+        document.getElementById('login-button').addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Redirect or update UI upon successful login
+                document.getElementById('login-error').textContent = ''; // Clear error message
+                window.location.href = "dashboard.html"; // Example redirection to a dashboard page
+            } catch (error) {
+                document.getElementById('login-error').textContent = error.message; // Display error
+            }
+        });
+
+        // Listen for Auth State Changes
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Redirect to the dashboard if the user is already signed in
+                window.location.href = "dashboard.html";
+            }
+        });
+    </script>
+</body>
+</html>
