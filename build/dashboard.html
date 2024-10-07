@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Link to your styles -->
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <h2>Welcome to the Dashboard</h2>
+    <p>This is the CRM dashboard page.</p>
+    
+    <!-- Logout Button -->
+    <button id="logout-button">Logout</button>
+
+    <!-- Firebase and JavaScript Scripts -->
+    <script type="module">
+        import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/9.8.1/firebase-auth.js';
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js';
+        import { firebaseConfig } from './scripts/firebaseConfig.js';
+
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Logout event listener
+        document.getElementById('logout-button').addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                // Redirect to login page
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+        });
+    </script>
+</body>
+</html>
+
+  
+
+
