@@ -1,29 +1,50 @@
-import React from 'react';
-import './Dashboard.css'; // Optional: Create a CSS file to style your dashboard
+// src/components/Dashboard.js
+import React, { useEffect, useState } from 'react';
+import { auth } from '../firebase/firebaseConfig'; // Import auth from firebaseConfig
+import { signOut } from 'firebase/auth';
+import './Dashboard.css'; // Import the CSS file for styling
 
 function Dashboard() {
-  // Static mock data for demonstration
-  const summary = {
-    clients: 120,
-    openClaims: 35,
-    pendingTasks: 12,
+  // States to hold data
+  const [summary, setSummary] = useState({
+    clients: 0,
+    openClaims: 0,
+    pendingTasks: 0,
+  });
+  const [recentActivity, setRecentActivity] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+
+  // Fetch data from Firebase (replace this with actual fetching logic)
+  useEffect(() => {
+    // Example: Update mock data (Replace this with Firebase fetching)
+    setSummary({ clients: 120, openClaims: 35, pendingTasks: 12 });
+    setRecentActivity([
+      { description: 'Updated claim #123' },
+      { description: 'Added new client: John Doe' },
+      { description: 'Sent follow-up email to client' },
+      { description: 'Uploaded document for claim #456' },
+    ]);
+    setNotifications([
+      { message: 'Claim #789 is due for review' },
+      { message: 'Follow-up with client Jane Smith' },
+      { message: 'Pending approval: New client onboarding' },
+    ]);
+  }, []);
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      window.location.href = '/'; // Redirect to login page
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
-
-  const recentActivity = [
-    { description: 'Updated claim #123' },
-    { description: 'Added new client: John Doe' },
-    { description: 'Sent follow-up email to client' },
-    { description: 'Uploaded document for claim #456' },
-  ];
-
-  const notifications = [
-    { message: 'Claim #789 is due for review' },
-    { message: 'Follow-up with client Jane Smith' },
-    { message: 'Pending approval: New client onboarding' },
-  ];
 
   return (
     <div className="dashboard">
+      <h2>Welcome to the Dashboard</h2>
+
       {/* Summary Cards */}
       <div className="summary-cards">
         <div className="card">Clients: {summary.clients}</div>
@@ -56,6 +77,9 @@ function Dashboard() {
         <button>Add New Client</button>
         <button>Create New Claim</button>
       </div>
+
+      {/* Logout Button */}
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }

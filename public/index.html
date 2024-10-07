@@ -3,88 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apex Adjusting Group CRM - Login</title>
-    <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="styles/styles.css">
+    <title>Apex Adjusting Group CRM</title>
+    <!-- Link to your CSS file for global styles -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/styles/styles.css">
 </head>
 <body>
-    <!-- Main wrapper for the login page -->
-    <div class="login-page">
-        <!-- Left image container -->
-        <div class="login-image"></div>
-        
-        <!-- Login form container -->
-        <div class="login-form-container">
-            <!-- Logo section -->
-            <div class="logo">
-                <img src="https://apexadjustinggroup.com/wp-content/uploads/2021/10/234db.png" alt="Apex Adjusting Group Logo">
-            </div>
-
-            <!-- Login form -->
-            <div class="login-container">
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" required>
-                </div>
-                <button id="login-button">Login</button>
-                <div id="login-error" class="error-message"></div>
-
-                <!-- Footer (optional) -->
-                <div class="login-footer">
-                    &copy; 2024 Apex Adjusting Group. All rights reserved.
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Firebase Authentication Script -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js';
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.8.1/firebase-auth.js';
-
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCdSSJjOesEx3TcTsqdn8ZAf-sKH_UypSE",
-            authDomain: "apex-crm-437802.firebaseapp.com",
-            projectId: "apex-crm-437802",
-            storageBucket: "apex-crm-437802.appspot.com",
-            messagingSenderId: "250243550020",
-            appId: "1:250243550020:web:00b6afbc344febb3ba6511",
-            measurementId: "G-9F2KZV98ZD"
-};
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Login Event Listener
-        document.getElementById('login-button').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-
-                // Redirect or update UI upon successful login
-                document.getElementById('login-error').textContent = ''; // Clear error message
-                window.location.href = "dashboard.html"; // Example redirection to a dashboard page
-            } catch (error) {
-                document.getElementById('login-error').textContent = error.message; // Display error
-            }
-        });
-
-        // Listen for Auth State Changes
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // Redirect to the dashboard if the user is already signed in
-                window.location.href = "dashboard.html";
-            }
-        });
-    </script>
+    <!-- Root element for React to render the app -->
+    <div id="root"></div>
 </body>
 </html>
